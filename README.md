@@ -51,43 +51,48 @@ Authorization: Bearer <ваш_токен>
 
 
 # Запуск тестов
-# Убедиться, что БД запущена (если не через Docker Compose)
+## Убедиться, что БД запущена (если не через Docker Compose)
+```
 docker start todo_postgres
+```
 
-# Запустить все тесты
+## Запустить все тесты
+```
 poetry run pytest tests/ -v
+```
 
 # Структура проекта
+
 ```
 todo_api/
-├── app/
-│ ├── api/
-│ │ ├── routes/
-│ │ │ ├── auth.py # Регистрация и логин (JWT)
-│ │ │ └── todos.py # CRUD для задач
-│ │ └── dependencies.py # Общие зависимости (например, get_db)
-│ ├── core/
-│ │ ├── config.py # Настройки из .env
-│ │ └── security.py # JWT (AuthX) — конфиг и функции
-│ ├── db/
-│ │ └── database.py # Подключение к PostgreSQL, сессии, Base
-│ ├── models/
-│ │ ├── user.py # Модель пользователя
-│ │ └── todo.py # Модель задачи
-│ ├── schemas/
-│ │ ├── token.py # Схема для токена
-│ │ ├── user.py # Схемы для регистрации/ответа
-│ │ └── todo.py # Схемы для задач (Create, Update, Response)
-│ └── main.py # Точка входа FastAPI
-├── tests/
-│ ├── test_auth.py # Тесты регистрации и логина
-│ ├── test_todos.py # Тесты CRUD задач
-│ └── conftest.py # Фикстуры для тестов (очистка БД, клиент)
-├── Dockerfile # Инструкция для сборки образа
-├── docker-compose.yml # Запуск приложения и PostgreSQL
-├── pyproject.toml # Зависимости (poetry)
-├── poetry.lock # Фиксация версий зависимостей
-└── README.md # Документация
+├── app/                                # Основная директория приложения
+│   ├── api/                            # Слой маршрутов и зависимостей
+│   │   ├── routes/                     # Эндпоинты
+│   │   │   ├── auth.py                 # Регистрация и логин (JWT)
+│   │   │   └── todos.py                # CRUD для задач
+│   │   └── dependencies.py             # Общие зависимости (например, get_db)
+│   ├── core/                           # Настройки и безопасность
+│   │   ├── config.py                   # Настройки из .env
+│   │   └── security.py                 # JWT (AuthX) — конфиг и функции
+│   ├── db/                             # База данных
+│   │   └── database.py                 # Подключение к PostgreSQL, сессии, Base
+│   ├── models/                         # Модели SQLAlchemy
+│   │   ├── user.py                     # Модель пользователя
+│   │   └── todo.py                     # Модель задачи
+│   ├── schemas/                        # Pydantic схемы для валидации
+│   │   ├── token.py                    # Схема для токена
+│   │   ├── user.py                     # Схемы для регистрации/ответа
+│   │   └── todo.py                     # Схемы для задач (Create, Update, Response)
+│   └── main.py                         # Точка входа FastAPI
+├── tests/                              # Тесты
+│   ├── test_auth.py                    # Тесты регистрации и логина
+│   ├── test_todos.py                   # Тесты CRUD задач
+│   └── conftest.py                     # Фикстуры для тестов (очистка БД, клиент)
+├── Dockerfile                          # Инструкция для сборки образа
+├── docker-compose.yml                  # Запуск приложения и PostgreSQL
+├── pyproject.toml                      # Зависимости (poetry)
+├── poetry.lock                         # Фиксация версий зависимостей
+└── README.md                           # Документация
 ```
 
 
